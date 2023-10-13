@@ -6,7 +6,6 @@ const upload = require("../middlewares/uploader")
 const authenticate = require("../middlewares/authenticate")
 const checkOwnership = require("../middlewares/checkOwnership")
 const checkBody = require("../middlewares/checkBody")
-const checkRole = require("../middlewares/checkRole")
 
 router.post(
 	"/",
