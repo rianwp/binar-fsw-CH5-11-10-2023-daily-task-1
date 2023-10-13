@@ -21,7 +21,6 @@ router.get("/:id", Product.findProductById)
 router.patch(
 	"/:id",
 	authenticate,
-	checkRole("Owner"),
 	checkOwnership(false),
 	upload.single("image"),
 	Product.updateProduct
@@ -29,7 +28,6 @@ router.patch(
 router.delete(
 	"/:id",
 	authenticate,
-	checkRole("Owner"),
 	checkOwnership(false),
 	Product.deleteProduct
 )
