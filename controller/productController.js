@@ -26,6 +26,7 @@ const createProduct = async (req, res, next) => {
 			price,
 			stock,
 			imageUrl: img,
+			userId: req.user.id,
 		})
 
 		res.status(200).json({
@@ -84,6 +85,11 @@ const updateProduct = async (req, res, next) => {
 	const { name, price, stock } = req.body
 	const file = req.file
 	let img
+	const updatedProduct = {
+		name,
+		price,
+		stock,
+	}
 
 	try {
 		if (file) {
@@ -98,20 +104,16 @@ const updateProduct = async (req, res, next) => {
 			})
 			img = uploadedImage.url
 		}
+		
+		if (img) {
+			updatedProduct.imageUrl = img
+		}
 
-		await Product.update(
-			{
-				name,
-				price,
-				stock,
-				imageUrl: img,
+		await Product.update(updatedProduct, {
+			where: {
+				id: req.params.id,
 			},
-			{
-				where: {
-					id: req.params.id,
-				},
-			}
-		)
+		})
 
 		res.status(200).json({
 			status: "Success",

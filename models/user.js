@@ -22,6 +22,12 @@ module.exports = (sequelize, DataTypes) => {
 					allowNull: false,
 				},
 			})
+			User.hasMany(models.Product, {
+				foreignKey: {
+					name: "userId",
+					allowNull: false,
+				},
+			})
 		}
 	}
 	User.init(
