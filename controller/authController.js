@@ -80,7 +80,7 @@ const login = async (req, res, next) => {
 				},
 				process.env.JWT_SECRET
 			)
-			res.status(201).json({
+			res.status(200).json({
 				status: "Success",
 				message: "berhasil login",
 				data: token,
@@ -93,7 +93,29 @@ const login = async (req, res, next) => {
 	}
 }
 
+const checkToken = async (req, res, next) => {
+	try {
+		const user = await User.findOne(
+			{
+				where: {
+					id: req.user.id,
+				},
+			},
+			{
+				include: ["Auth", "Shops"],
+			}
+		)
+		res.status(200).json({
+			status: "Success",
+			data: user,
+		})
+	} catch (err) {
+		next(new ApiError(err.message, 500))
+	}
+}
+
 module.exports = {
 	register,
 	login,
+	checkToken,
 }

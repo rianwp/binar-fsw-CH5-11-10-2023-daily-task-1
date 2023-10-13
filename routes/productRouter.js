@@ -3,13 +3,26 @@ const router = require("express").Router()
 const Product = require("../controller/productController")
 
 const upload = require("../middlewares/uploader")
-const auth = require("../middlewares/authenticate")
-const checkRole = require("../middlewares/checkRole")
+const authenticate = require("../middlewares/authenticate")
+const checkOwnership = require("../middlewares/checkOwnership")
+const checkBody = require("../middlewares/checkBody")
 
-router.post("/", upload.single("image"), Product.createProduct)
-router.get("/", auth, checkRole("Owner"), Product.findProducts)
+router.post(
+	"/",
+	authenticate,
+	upload.single("image"),
+	checkBody(["name", "price", "stock"]),
+	Product.createProduct
+)
+router.get("/", Product.findProducts)
 router.get("/:id", Product.findProductById)
-router.patch("/:id", Product.UpdateProduct)
-router.delete("/:id", Product.deleteProduct)
+router.patch(
+	"/:id",
+	authenticate,
+	checkOwnership,
+	upload.single("image"),
+	Product.updateProduct
+)
+router.delete("/:id", authenticate, checkOwnership, Product.deleteProduct)
 
 module.exports = router
