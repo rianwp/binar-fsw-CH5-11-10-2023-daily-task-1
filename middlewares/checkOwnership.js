@@ -5,7 +5,7 @@ const checkOwnerShip = (checkOwnershipOnly) => {
 	return async (req, res, next) => {
 		try {
 			if (checkOwnershipOnly) {
-				const shop = await User.findOne({
+				const shop = await Shop.findOne({
 					where: {
 						userId: req.user.id,
 					},
