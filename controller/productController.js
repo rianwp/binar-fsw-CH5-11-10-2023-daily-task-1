@@ -43,7 +43,7 @@ const createProduct = async (req, res, next) => {
 const findProducts = async (req, res, next) => {
 	try {
 		const products = await Product.findAll({
-			include: ["Shop"],
+			include: [],
 		})
 
 		res.status(200).json({
@@ -64,7 +64,7 @@ const findProductById = async (req, res, next) => {
 				where: {
 					id: req.params.id,
 				},
-				include: ["Shop"],
+				include: [],
 			},
 		)
 
