@@ -60,16 +60,12 @@ const login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body
 
-		const user = await Auth.findOne(
-			{
-				where: {
-					email,
-				},
+		const user = await Auth.findOne({
+			where: {
+				email,
 			},
-			{
-				include: ["User"],
-			}
-		)
+			include: ["User"],
+		})
 		if (user && bcrypt.compareSync(password, user.password)) {
 			const token = jwt.sign(
 				{
@@ -95,16 +91,12 @@ const login = async (req, res, next) => {
 
 const checkToken = async (req, res, next) => {
 	try {
-		const user = await User.findOne(
-			{
-				where: {
-					id: req.user.id,
-				},
+		const user = await User.findOne({
+			where: {
+				id: req.user.id,
 			},
-			{
-				include: ["Auth", "Shops"],
-			}
-		)
+			include: ["Auth", "Shops"],
+		})
 		res.status(200).json({
 			status: "Success",
 			data: user,

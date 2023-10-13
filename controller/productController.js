@@ -64,10 +64,8 @@ const findProductById = async (req, res, next) => {
 				where: {
 					id: req.params.id,
 				},
-			},
-			{
 				include: ["Shop"],
-			}
+			},
 		)
 
 		res.status(200).json({
@@ -104,7 +102,7 @@ const updateProduct = async (req, res, next) => {
 			})
 			img = uploadedImage.url
 		}
-		
+
 		if (img) {
 			updatedProduct.imageUrl = img
 		}

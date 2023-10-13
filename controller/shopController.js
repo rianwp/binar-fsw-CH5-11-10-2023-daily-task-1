@@ -46,10 +46,8 @@ const findShopById = async (req, res, next) => {
 				where: {
 					id: req.params.id,
 				},
-			},
-			{
 				include: ["User", "Product"],
-			}
+			},
 		)
 
 		res.status(200).json({

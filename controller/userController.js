@@ -42,16 +42,12 @@ const findUsers = async (req, res, next) => {
 
 const findUserById = async (req, res, next) => {
 	try {
-		const user = await User.findOne(
-			{
-				where: {
-					id: req.params.id,
-				},
+		const user = await User.findOne({
+			where: {
+				id: req.params.id,
 			},
-			{
-				include: ["Shop", "Auth"],
-			}
-		)
+			include: ["Shop", "Auth"],
+		})
 
 		res.status(200).json({
 			status: "Success",
