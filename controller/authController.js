@@ -91,15 +91,15 @@ const login = async (req, res, next) => {
 
 const checkToken = async (req, res, next) => {
 	try {
-		const user = await User.findOne({
-			where: {
-				id: req.user.id,
-			},
-			include: ["Auth", "Shops"],
-		})
+		// const user = await User.findOne({
+		// 	where: {
+		// 		id: req.user.id,
+		// 	},
+		// 	include: ["Auth", "Shops"],
+		// })
 		res.status(200).json({
 			status: "Success",
-			data: user,
+			data: req.user,
 		})
 	} catch (err) {
 		next(new ApiError(err.message, 500))
