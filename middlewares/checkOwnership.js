@@ -1,7 +1,7 @@
 const { Shop } = require("../models")
 const ApiError = require("../utils/apiError")
 
-checkOwnerShip = (checkOwnershipOnly) => {
+const checkOwnerShip = (checkOwnershipOnly) => {
 	return async (req, res, next) => {
 		try {
 			if (checkOwnershipOnly) {
@@ -38,3 +38,5 @@ checkOwnerShip = (checkOwnershipOnly) => {
 		}
 	}
 }
+
+module.exports = checkOwnerShip
