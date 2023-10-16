@@ -2,13 +2,11 @@ const { Shop } = require("../models")
 const ApiError = require("../utils/apiError")
 
 const createShop = async (req, res, next) => {
-	const { name, userId, productId } = req.body
+	const { name } = req.body
 
 	try {
 		const newShop = await Shop.create({
 			name,
-			userId,
-			productId,
 		})
 
 		res.status(200).json({
@@ -25,7 +23,7 @@ const createShop = async (req, res, next) => {
 const findShops = async (req, res, next) => {
 	try {
 		const shops = await Shop.findAll({
-			include: ["User", "Product"],
+			include: ["Users", "Product"],
 		})
 
 		res.status(200).json({
@@ -41,14 +39,12 @@ const findShops = async (req, res, next) => {
 
 const findShopById = async (req, res, next) => {
 	try {
-		const shop = await Shop.findOne(
-			{
-				where: {
-					id: req.params.id,
-				},
-				include: ["User", "Product"],
+		const shop = await Shop.findOne({
+			where: {
+				id: req.params.id,
 			},
-		)
+			include: ["Users", "Product"],
+		})
 
 		res.status(200).json({
 			status: "Success",
@@ -62,13 +58,11 @@ const findShopById = async (req, res, next) => {
 }
 
 const updateShop = async (req, res, next) => {
-	const { name, userId, productId } = req.body
+	const { name } = req.body
 	try {
 		await Shop.update(
 			{
 				name,
-				userId,
-				productId,
 			},
 			{
 				where: {

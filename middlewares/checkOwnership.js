@@ -1,17 +1,17 @@
-const { Shop } = require("../models")
+const { Shop, User } = require("../models")
 const ApiError = require("../utils/apiError")
 
 const checkOwnerShip = (checkOwnershipOnly) => {
 	return async (req, res, next) => {
 		try {
 			if (checkOwnershipOnly) {
-				const shop = await Shop.findOne({
+				const user = await User.findOne({
 					where: {
-						userId: req.user.id,
+						id: req.user.id,
 					},
 				})
 
-				if (!shop) {
+				if (!user.shopId) {
 					next(
 						new ApiError(`kamu belum memiliki toko jadi tidak bisa akses`, 401)
 					)

@@ -21,6 +21,9 @@ module.exports = {
 			role: {
 				type: Sequelize.ENUM(["Owner", "Staff"]),
 			},
+			shopId: {
+				type: Sequelize.INTEGER,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

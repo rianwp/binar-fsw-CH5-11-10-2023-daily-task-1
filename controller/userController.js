@@ -26,7 +26,7 @@ const ApiError = require("../utils/apiError")
 const findUsers = async (req, res, next) => {
 	try {
 		const users = await User.findAll({
-			include: ["Auth", "Shops", "Products"],
+			include: ["Auth", "Shop", "Products"],
 		})
 
 		res.status(200).json({
@@ -46,7 +46,7 @@ const findUserById = async (req, res, next) => {
 			where: {
 				id: req.params.id,
 			},
-			include: ["Auth", "Shops", "Products"],
+			include: ["Auth", "Shop", "Products"],
 		})
 
 		res.status(200).json({
@@ -61,7 +61,7 @@ const findUserById = async (req, res, next) => {
 }
 
 const updateUser = async (req, res, next) => {
-	const { name, age, address, role } = req.body
+	const { name, age, address, role, shopId } = req.body
 	try {
 		await User.update(
 			{
@@ -69,6 +69,7 @@ const updateUser = async (req, res, next) => {
 				age,
 				address,
 				role,
+				shopId,
 			},
 			{
 				where: {

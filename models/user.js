@@ -16,10 +16,9 @@ module.exports = (sequelize, DataTypes) => {
 					allowNull: false,
 				},
 			})
-			User.hasMany(models.Shop, {
+			User.belongsTo(models.Shop, {
 				foreignKey: {
-					name: "userId",
-					allowNull: false,
+					name: "shopId",
 				},
 			})
 			User.hasMany(models.Product, {
@@ -35,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 			name: DataTypes.STRING,
 			age: DataTypes.INTEGER,
 			address: DataTypes.STRING,
+			shopId: DataTypes.INTEGER,
 			role: {
 				type: DataTypes.ENUM(["Owner", "Staff"]),
 				defaultValue: "Staff",
